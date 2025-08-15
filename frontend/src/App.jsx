@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import React, { useState, useEffect } from 'react'; // <-- 1. Import useEffect
+import React, { useState } from 'react'; // useEffect is no longer needed here
 import './index.css';
 import InputForm from './components/InputForm';
 import ResultDisplay from './components/ResultDisplay';
@@ -11,31 +11,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [urlError, setUrlError] = useState('');
-  const [buttonText, setButtonText] = useState('Summarize'); // <-- 2. New state for button text
 
-  // --- 3. NEW: useEffect hook for the loading animation ---
-  useEffect(() => {
-    let intervalId;
+  // The old useEffect for "Summarizing..." animation is now removed.
 
-    if (isLoading) {
-      // When loading starts, set up an interval to cycle the dots
-      let dotCount = 1;
-      setButtonText('Summarizing.'); // Set initial text
-
-      intervalId = setInterval(() => {
-        dotCount = (dotCount % 3) + 1; // Cycle from 1 to 3
-        setButtonText(`Summarizing${'.'.repeat(dotCount)}`);
-      }, 500); // Change text every 500ms
-    } else {
-      // When loading stops, reset the button text
-      setButtonText('Summarize');
-    }
-
-    // This is the "cleanup" function. React runs this when the component
-    // re-renders or unmounts, preventing memory leaks.
-    return () => clearInterval(intervalId);
-
-  }, [isLoading]); // This effect re-runs ONLY when the `isLoading` state changes
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/summarize';
 
   const validateUrl = (url) => {
     const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
@@ -59,14 +38,11 @@ function App() {
     setResult(null);
     setError('');
 
-    // ... (rest of the handleSubmit function is unchanged) ...
-    const backendUrl = 'http://localhost:5000/summarize';
     try {
-      const fullUrl = articleUrl.startsWith('http') ? articleUrl : `https://`;
       const response = await fetch(backendUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ articleUrl: fullUrl }),
+        body: JSON.stringify({ articleUrl: articleUrl }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -92,13 +68,13 @@ function App() {
       <h1>Phoenix Article Summarizer</h1>
       <p className="subtitle">Enter the URL of an article to get a summary, key points, and an accuracy score.</p>
       
+      {/* The InputForm component no longer needs a buttonText prop */}
       <InputForm 
         articleUrl={articleUrl}
         onUrlChange={handleUrlChange} 
         handleSubmit={handleSubmit}
         isLoading={isLoading} 
         urlError={urlError}
-        buttonText={buttonText} // <-- 4. Pass the new dynamic button text
       />
 
       <ResultDisplay 

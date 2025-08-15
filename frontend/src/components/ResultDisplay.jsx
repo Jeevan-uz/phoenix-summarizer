@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 function ResultDisplay({ result, error, handleClear }) {
     const [summaryCopyText, setSummaryCopyText] = useState('Copy');
@@ -44,12 +45,7 @@ function ResultDisplay({ result, error, handleClear }) {
                 </div>
             </div>
 
-            {error && (
-                <div className="result-box error-box">
-                    <h2>An Error Occurred</h2>
-                    <p>{error}</p>
-                </div>
-            )}
+           {error && <ErrorMessage message={error} />}
 
             {result && (
                 <div className="cards-layout">

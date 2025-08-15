@@ -1,10 +1,11 @@
 // src/components/InputForm.jsx
 
 import React from 'react';
+import AnimatedButton from './AnimatedButton'; // Import our new button
+import ErrorMessage from './ErrorMessage';
 
-// Receive the new buttonText prop
-function InputForm({ articleUrl, onUrlChange, handleSubmit, isLoading, urlError, buttonText }) {
-  const isButtonDisabled = isLoading || (!!urlError && !!articleUrl);
+function InputForm({ articleUrl, onUrlChange, handleSubmit, isLoading, urlError }) {
+  const isButtonDisabled = isLoading || !articleUrl || !!urlError;
 
   return (
     <div className="form-container">
@@ -17,12 +18,10 @@ function InputForm({ articleUrl, onUrlChange, handleSubmit, isLoading, urlError,
           className={urlError ? 'input-error' : ''}
           required
         />
-        {/* Use the buttonText prop here instead of a hardcoded string */}
-        <button type="submit" disabled={isButtonDisabled}>
-          {buttonText}
-        </button>
+        {/* Replace the old button with our new animated one */}
+        <AnimatedButton isLoading={isLoading} isDisabled={isButtonDisabled} />
       </form>
-      {urlError && <p className="url-error-message">{urlError}</p>}
+      <ErrorMessage message={urlError} />
     </div>
   );
 }
