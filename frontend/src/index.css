@@ -1,258 +1,104 @@
-/* frontend/src/index.css */
-
+/* "CELESTIAL" THEME with ACCENTS v1.1 */
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5;
-  color: #1c1e21;
+  --text-primary: #e5e7eb; 
+  --text-secondary: #9ca3af; 
+  --border-color: rgba(255, 255, 255, 0.1); 
+  --primary-accent: #22D3EE; /* UPDATED - Vibrant Cyan for high contrast */
+  --primary-accent-hover: #06B6D4; /* UPDATED - Darker cyan for hover */
+  --container-bg: rgba(24, 32, 47, 0.7); 
+  --card-bg: rgba(15, 21, 35, 0.7); 
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --score-high-color: #4ade80; 
+  --score-medium-color: #facc15; 
+  --score-low-color: #f87171;
 }
-.container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+body { 
+  background-color: #0b111e; 
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0); 
+  background-size: 20px 20px; 
+  font-size: 16.5px; 
+  color: var(--text-primary); 
+  margin: 0; 
+  padding: 20px; 
 }
-h1 {
-  text-align: center;
-  color: #333;
+body, button, input { font-family: var(--font-main); }
+.container { 
+  max-width: 900px; 
+  margin: 40px auto; 
+  padding: 40px; 
+  background: var(--container-bg); 
+  backdrop-filter: blur(40px); 
+  -webkit-backdrop-filter: blur(40px); 
+  border-radius: 20px; 
+  border: 1px solid var(--border-color); 
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05); 
 }
-.subtitle {
-  text-align: center;
-  color: #606770;
-  margin-bottom: 2rem;
+h1 { 
+  text-align: center; 
+  color: var(--primary-accent); 
+  font-weight: 800; 
+  font-size: 3rem; 
+  text-shadow: 0 0 20px rgba(34, 211, 238, 0.25); /* UPDATED - Shadow to match new accent */
 }
-.input-form {
-  display: flex;
-  gap: 10px;
+.subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 1.15rem; font-weight: 400; }
+.results-title { font-size: 2rem; font-weight: 700; margin: 0; }
+.result-card h2 { font-size: 1.5rem; font-weight: 700; }
+.result-card h3 { font-size: 1.25rem; font-weight: 700; }
+.accuracy-score-large { font-size: 3.5rem; font-weight: 800; color: var(--text-primary); transition: color 0.3s ease-in-out; }
+.score-high { color: var(--score-high-color); }
+.score-medium { color: var(--score-medium-color); }
+.score-low { color: var(--score-low-color); }
+.form-container { position: relative; margin-bottom: 1rem; }
+.input-form { display: flex; gap: 12px; }
+.input-form input { 
+  flex-grow: 1; 
+  padding: 14px; 
+  font-size: 1rem; 
+  background-color: rgba(10, 15, 26, 0.7); 
+  border: 1px solid var(--border-color); 
+  border-radius: 8px; 
+  color: var(--text-primary); 
+  transition: all 0.2s; 
 }
-.input-form input {
-  flex-grow: 1;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #dddfe2;
-  border-radius: 8px;
+.input-form input:focus { 
+  outline: none; 
+  border-color: var(--primary-accent); 
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.4); /* UPDATED - Focus glow to match new accent */
 }
-.input-form button {
-  padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #1877f2;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.input-form button { padding: 14px 24px; font-size: 1rem; font-weight: 600; color: #FFFFFF; background-color: var(--primary-accent); border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease-in-out; }
+.input-form button:hover { background-color: var(--primary-accent-hover); }
+.input-form button:disabled { background-color: #374151; cursor: not-allowed; opacity: 0.7; display: flex; justify-content: center; align-items: center; }
+.input-error { border-color: #F87171 !important; }
+.url-error-message { color: #F87171; font-size: 0.9rem; margin-top: 8px; margin-left: 2px; }
+.results-container { margin-top: 3rem; }
+.results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
+.clear-container { margin: 0; }
+.clear-button, .copy-button { padding: 6px 14px; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); background-color: transparent; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.clear-button:hover, .copy-button:hover { 
+  color: var(--text-primary); 
+  border-color: var(--primary-accent); 
+  background-color: rgba(34, 211, 238, 0.1); /* UPDATED - Hover glow to match new accent */
 }
-.input-form button:hover {
-  background-color: #166fe5;
-}
-.input-form button:disabled {
-  background-color: #a0bdf1;
-  cursor: not-allowed;
-}
-.result-box {
-  margin-top: 2rem;
-  padding: 20px;
-  border-radius: 8px;
-  white-space: pre-wrap;
-  line-height: 1.6;
-}
-.error-box {
-  background-color: #fff5f5;
-  border: 1px solid #f7cac9;
-  color: #d8000c;
-}
-.summary-box {
-  background-color: #f5f8ff;
-  border: 1px solid #d6e4ff;
-}
-.summary-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.copy-button {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #1877f2;
-  background-color: #e7f3ff;
-  border: 1px solid #1877f2;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.copy-button:hover {
-  background-color: #dcebff;
-}
-.clear-container {
-    text-align: right;
-    margin-top: 1rem;
-    margin-bottom: -1rem;
-}
-.clear-button {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  color: #606770;
-  background-color: transparent;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.clear-button:hover {
-  background-color: #f0f2f5;
+.cards-layout { display: flex; flex-wrap: wrap; gap: 24px; }
+.result-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03); }
+.summary-card { flex-basis: 58%; flex-grow: 1; white-space: pre-wrap; line-height: 1.7; }
+.side-cards-container { flex-basis: 38%; flex-grow: 1; display: flex; flex-direction: column; gap: 24px; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+.points-card .key-points-list { padding-left: 20px; margin-top: 8px; margin-bottom: 0; line-height: 1.7; color: var(--text-secondary); }
+.accuracy-card { text-align: center; }
+.accuracy-score-large span { font-size: 1.5rem; font-weight: 400; color: var(--text-secondary); margin-left: 4px; }
+.error-box { background: rgba(220, 38, 38, 0.3); backdrop-filter: blur(10px); border: 1px solid rgba(248, 113, 113, 0.5); color: var(--text-primary); padding: 20px; border-radius: 8px; white-space: pre-wrap; }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* --- NEW STYLES FOR PHASE 2 --- */
-
-/* --- Find and REPLACE the old .section-title rule with these two --- */
-
-/* This new class creates a flexbox container for a title and a button */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid #dddfe2;
-  padding-bottom: 0.25rem;
-}
-
-/* This modification removes spacing from the title itself,
-   since the new .section-header now controls the spacing */
-.section-title {
-  margin: 0;
-  padding: 0;
-  border: none;
-  color: #333;
-}
-
-.key-points-list {
-  padding-left: 20px;
-  margin-bottom: 1.5rem;
-}
-
-.key-points-list li {
-  margin-bottom: 0.5rem;
-}
-
-.accuracy-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #e7f3ff;
-  padding: 10px 15px;
-  border-radius: 6px;
-}
-
-.accuracy-score {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #1877f2;
-}
-
-/* --- Add these styles for URL Validation --- */
-
-.form-container {
-  position: relative; /* This allows us to position the error message */
-  margin-bottom: 1rem;
-}
-
-.input-error {
-  border-color: #d8000c !important; /* Make the border red for invalid input */
-  box-shadow: 0 0 0 1px #d8000c;
-}
-
-.url-error-message {
-  color: #d8000c;
-  font-size: 0.9rem;
-  margin-top: 5px;
-  margin-left: 2px;
-}
-
-/* === POLISHED CARD UI STYLES (Version 2) === */
-
-/* Main container for the entire results section */
-.results-container {
-  margin-top: 1rem;
-  position: relative; /* This is key for positioning the clear button */
-}
-
-/* Position the clear button container in the top right */
-.results-container .clear-container {
-  position: absolute;
-  top: -15px;
-  right: 0;
-}
-
-/* The main flexbox layout for the cards */
-.cards-layout {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  gap: 24px;
-  margin-top: 2rem;
-}
-
-/* Base styles for all cards */
-.result-card {
-  background-color: #ffffff;
-  border: 1px solid #dddfe2;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-}
-
-/* The main, larger summary card */
-.summary-card {
-  flex-basis: 58%; /* Takes up ~60% of the width */
-  flex-grow: 1;
-  white-space: pre-wrap;
-  line-height: 1.6;
-}
-
-/* The container for the smaller, vertical cards on the side */
-.side-cards-container {
-  flex-basis: 38%; /* Takes up ~40% of the width */
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Standardize all card titles */
-.result-card h2,
-.result-card h3 {
-  margin: 0;
-  padding: 0;
-  border: none;
-  color: #333;
-}
-
-.points-card .key-points-list {
-  padding-left: 20px;
-  margin-top: 8px; /* Add some space above the list */
-  margin-bottom: 0;
-  line-height: 1.6;
-}
-
-.accuracy-card {
-  text-align: center;
-}
-
-.accuracy-score-large {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #1877f2;
-  margin: 1rem 0 0 0;
-}
-
-.accuracy-score-large span {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #606770;
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }

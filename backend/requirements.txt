@@ -1,6 +1,0 @@
-# backend/requirements.txt
-python-dotenv==0.21.1
-google-generativeai==0.5.4
-google-api-core==2.17.1
-google-auth==2.29.0
-protobuf==4.25.3
