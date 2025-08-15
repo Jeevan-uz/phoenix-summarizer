@@ -181,3 +181,33 @@ h1 {
 .error-box {
   display: none; /* No longer used */
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  /* Reduce padding on the main container for more space */
+  .container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  /* Make the main title smaller on mobile */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Stack the main results cards vertically */
+  .cards-layout {
+    flex-direction: column;
+  }
+
+  /* Ensure side cards don't have a fixed basis and can grow */
+  .summary-card,
+  .side-cards-container {
+    flex-basis: auto;
+  }
+
+  /* The input and button should stack */
+  .input-form {
+    flex-direction: column;
+  }
+}
