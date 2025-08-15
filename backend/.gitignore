@@ -1,0 +1,11 @@
+# backend/.gitignore
+
+# Python virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Python caches
+__pycache__/
+*.pyc

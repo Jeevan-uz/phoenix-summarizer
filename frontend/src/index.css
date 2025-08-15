@@ -1,0 +1,174 @@
+/* frontend/src/index.css */
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #1c1e21;
+}
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+h1 {
+  text-align: center;
+  color: #333;
+}
+.subtitle {
+  text-align: center;
+  color: #606770;
+  margin-bottom: 2rem;
+}
+.input-form {
+  display: flex;
+  gap: 10px;
+}
+.input-form input {
+  flex-grow: 1;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+}
+.input-form button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #1877f2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.input-form button:hover {
+  background-color: #166fe5;
+}
+.input-form button:disabled {
+  background-color: #a0bdf1;
+  cursor: not-allowed;
+}
+.result-box {
+  margin-top: 2rem;
+  padding: 20px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.error-box {
+  background-color: #fff5f5;
+  border: 1px solid #f7cac9;
+  color: #d8000c;
+}
+.summary-box {
+  background-color: #f5f8ff;
+  border: 1px solid #d6e4ff;
+}
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.copy-button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #1877f2;
+  background-color: #e7f3ff;
+  border: 1px solid #1877f2;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.copy-button:hover {
+  background-color: #dcebff;
+}
+.clear-container {
+    text-align: right;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+}
+.clear-button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  color: #606770;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.clear-button:hover {
+  background-color: #f0f2f5;
+}
+
+/* --- NEW STYLES FOR PHASE 2 --- */
+
+/* --- Find and REPLACE the old .section-title rule with these two --- */
+
+/* This new class creates a flexbox container for a title and a button */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #dddfe2;
+  padding-bottom: 0.25rem;
+}
+
+/* This modification removes spacing from the title itself,
+   since the new .section-header now controls the spacing */
+.section-title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #333;
+}
+
+.key-points-list {
+  padding-left: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.key-points-list li {
+  margin-bottom: 0.5rem;
+}
+
+.accuracy-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f3ff;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+.accuracy-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1877f2;
+}
+
+/* --- Add these styles for URL Validation --- */
+
+.form-container {
+  position: relative; /* This allows us to position the error message */
+  margin-bottom: 1rem;
+}
+
+.input-error {
+  border-color: #d8000c !important; /* Make the border red for invalid input */
+  box-shadow: 0 0 0 1px #d8000c;
+}
+
+.url-error-message {
+  color: #d8000c;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-left: 2px;
+}
