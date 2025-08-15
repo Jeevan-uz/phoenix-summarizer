@@ -2,6 +2,7 @@
 
 import os
 import json
+import logging # <-- 1. Import the logging module
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -15,7 +16,8 @@ from newspaper import Article, Config
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/summarize": {"origins": "http://localhost:5173"}})
+# In a real production environment, you would replace the "*" with your Vercel frontend URL
+CORS(app, resources={r"/summarize": {"origins": "*"}}) 
 
 limiter = Limiter(
     get_remote_address,
@@ -35,14 +37,14 @@ try:
         raise ValueError("GOOGLE_API_KEY not found in .env file")
     genai.configure(api_key=api_key)
 except Exception as e:
-    print(f"Error configuring Google AI: {e}")
+    # Use logging for startup errors as well
+    logging.basicConfig(level=logging.INFO)
+    logging.error(f"FATAL: Could not configure Google AI. Error: {e}")
 
 
-# --- We are using a low limit for easy testing ---
 @app.route('/summarize', methods=['POST'])
-@limiter.limit("10 per day")
+@limiter.limit("10 per day") # A low limit for easy testing
 def summarize():
-    # ... (The summarize function itself is completely unchanged)
     data = request.get_json()
     article_url = data.get('articleUrl')
 
@@ -56,7 +58,8 @@ def summarize():
 
         article_text = article.text
         if not article_text or len(article_text) < 200:
-            return jsonify({'error': 'Could not extract sufficient article text.'}), 400
+            user_error = "Could not extract sufficient readable text from the article. The page may be a video, a PDF, or require a login."
+            return jsonify({'error': user_error}), 400
         
         prompt = f"""
         Analyze the following article text and return a single, valid JSON object.
@@ -76,17 +79,21 @@ def summarize():
         return jsonify(result_json)
 
     except json.JSONDecodeError:
+        # This is a specific error for when the AI gives a bad response
         return jsonify({'error': 'The AI model returned an invalid format. Please try again.'}), 500
+    
+    # --- 2. THIS IS THE KEY CHANGE ---
     except Exception as e:
-        return jsonify({'error': f'Failed to process the article. (Error: {str(e)})'}), 500
+        # Log the detailed, technical error for our debugging purposes
+        logging.error(f"Error processing URL: {article_url}. Exception: {e}")
 
-# --- NEW: Create a custom JSON error response for rate limiting ---
-# The @app.errorhandler decorator registers a function to handle a specific error code.
-# The code for "Too Many Requests" is 429.
+        # Return a generic, user-friendly error message to the frontend
+        user_friendly_error = "Could not process the article. The URL may be incorrect, the website may be down, or it might be blocking automated access."
+        return jsonify({"error": user_friendly_error}), 500
+
+
 @app.errorhandler(429)
 def ratelimit_handler(e):
-    # This function will now run instead of the default HTML page.
-    # It returns a JSON object that our frontend can understand.
     return jsonify(error=f"Rate limit exceeded: {e.description}"), 429
 
 

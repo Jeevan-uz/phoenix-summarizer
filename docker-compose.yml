@@ -1,0 +1,10 @@
+services:
+  backend:
+    # THE FIX IS HERE: We now point to the 'backend' directory
+    build: ./backend 
+    image: phoenix-summarizer-backend
+    container_name: phoenix-api
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
