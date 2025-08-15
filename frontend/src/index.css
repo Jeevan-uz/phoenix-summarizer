@@ -172,3 +172,87 @@ h1 {
   margin-top: 5px;
   margin-left: 2px;
 }
+
+/* === POLISHED CARD UI STYLES (Version 2) === */
+
+/* Main container for the entire results section */
+.results-container {
+  margin-top: 1rem;
+  position: relative; /* This is key for positioning the clear button */
+}
+
+/* Position the clear button container in the top right */
+.results-container .clear-container {
+  position: absolute;
+  top: -15px;
+  right: 0;
+}
+
+/* The main flexbox layout for the cards */
+.cards-layout {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+/* Base styles for all cards */
+.result-card {
+  background-color: #ffffff;
+  border: 1px solid #dddfe2;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* The main, larger summary card */
+.summary-card {
+  flex-basis: 58%; /* Takes up ~60% of the width */
+  flex-grow: 1;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* The container for the smaller, vertical cards on the side */
+.side-cards-container {
+  flex-basis: 38%; /* Takes up ~40% of the width */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Standardize all card titles */
+.result-card h2,
+.result-card h3 {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #333;
+}
+
+.points-card .key-points-list {
+  padding-left: 20px;
+  margin-top: 8px; /* Add some space above the list */
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.accuracy-card {
+  text-align: center;
+}
+
+.accuracy-score-large {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1877f2;
+  margin: 1rem 0 0 0;
+}
+
+.accuracy-score-large span {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #606770;
+}

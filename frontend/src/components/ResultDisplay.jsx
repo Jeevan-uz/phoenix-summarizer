@@ -1,47 +1,37 @@
-// src/components/ResultDisplay.jsx
-
+// FULL AND FINAL VERSION for src/components/ResultDisplay.jsx
 import React, { useState } from 'react';
 
 function ResultDisplay({ result, error, handleClear }) {
-  // State for the original summary copy button
   const [summaryCopyText, setSummaryCopyText] = useState('Copy');
-  // <-- 1. NEW: Add state for our new key points copy button
   const [pointsCopyText, setPointsCopyText] = useState('Copy Points');
   
   if (!result && !error) {
     return null;
   }
 
-  // This function remains the same, but we rename it for clarity
   const handleCopySummary = () => {
     if (!result) return;
     navigator.clipboard.writeText(result.summary.trim());
     setSummaryCopyText('Copied!');
-    setTimeout(() => {
-      setSummaryCopyText('Copy');
-    }, 2000);
+    setTimeout(() => { setSummaryCopyText('Copy'); }, 2000);
   };
   
-  // <-- 2. NEW: Add a dedicated function to copy only the key points
   const handleCopyPoints = () => {
     if (!result || !result.key_points) return;
-    // Format the array of points into a single string with newlines
     const pointsText = result.key_points.map(point => `- ${point}`).join('\n');
     navigator.clipboard.writeText(pointsText);
     setPointsCopyText('Copied!');
-    setTimeout(() => {
-      setPointsCopyText('Copy Points');
-    }, 2000);
+    setTimeout(() => { setPointsCopyText('Copy Points'); }, 2000);
   };
   
   const onClear = () => {
     handleClear();
     setSummaryCopyText('Copy');
-    setPointsCopyText('Copy Points'); // <-- 3. NEW: Reset the new button's text on clear
+    setPointsCopyText('Copy Points');
   }
 
   return (
-    <>
+    <div className="results-container">
       <div className="clear-container">
         <button onClick={onClear} className="clear-button">Clear Results</button>
       </div>
@@ -54,39 +44,36 @@ function ResultDisplay({ result, error, handleClear }) {
       )}
 
       {result && (
-        <div className="result-box summary-box">
-          {/* Summary Section */}
-          <div className="section-header"> {/* <-- 4. UPDATE: Use the new generic class name */}
-            <h2>AI Summary</h2>
-            <button onClick={handleCopySummary} className="copy-button">
-              {summaryCopyText}
-            </button>
-          </div>
-          <p>{result.summary}</p>
-          
-          {/* Key Points Section */}
-          {/* <-- 5. NEW: Create a header for key points with the new button --> */}
-          <div className="section-header">
-            <h3 className="section-title">Key Points</h3>
-            <button onClick={handleCopyPoints} className="copy-button">
-              {pointsCopyText}
-            </button>
+        <div className="cards-layout">
+          <div className="result-card summary-card">
+            <div className="section-header">
+              <h2>AI Summary</h2>
+              <button onClick={handleCopySummary} className="copy-button">{summaryCopyText}</button>
+            </div>
+            <p>{result.summary}</p>
           </div>
 
-          <ul className="key-points-list">
-            {result.key_points.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
+          <div className="side-cards-container">
+            <div className="result-card points-card">
+              <div className="section-header">
+                <h3 className="section-title">Key Points</h3>
+                <button onClick={handleCopyPoints} className="copy-button">{pointsCopyText}</button>
+              </div>
+              <ul className="key-points-list">
+                {result.key_points.map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Accuracy Score Section */}
-          <div className="accuracy-section">
-            <h3 className="section-title">Estimated Accuracy Score</h3>
-            <div className="accuracy-score">{result.accuracy_score}/100</div>
+            <div className="result-card accuracy-card">
+              <h3 className="section-title">Estimated Accuracy</h3>
+              <p className="accuracy-score-large">{result.accuracy_score}<span>/100</span></p>
+            </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
