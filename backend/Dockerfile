@@ -26,4 +26,5 @@ COPY . .
 EXPOSE 5000
 
 # Step 7: Define the command to run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# In backend/Dockerfile
+CMD gunicorn --workers 1 --threads 8 --timeout 0 -b 0.0.0.0:8080 app:app

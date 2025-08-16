@@ -16,8 +16,18 @@ from newspaper import Article, Config
 load_dotenv()
 
 app = Flask(__name__)
-# In a real production environment, you would replace the "*" with your Vercel frontend URL
-CORS(app, resources={r"/summarize": {"origins": "*"}}) 
+# CORS Configuration
+# The frontend URL will be set in the environment variable CORS_ORIGIN_URL
+cors_origin = os.getenv('CORS_ORIGIN_URL', 'http://localhost:5173')
+
+print(f"--- DIAGNOSTIC LOG: CORS INITIALIZATION ---")
+print(f"Attempting to read CORS_ORIGIN_URL from environment.")
+print(f"Value read: '{os.getenv('CORS_ORIGIN_URL')}'")
+print(f"Flask-CORS will be configured with origin: '{cors_origin}'")
+print(f"-------------------------------------------")
+
+CORS(app, resources={r"/summarize": {"origins": cors_origin}})
+
 
 limiter = Limiter(
     get_remote_address,
